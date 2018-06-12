@@ -35,7 +35,7 @@
 
 				$total_minutes = $sec + $hour + $day + $month + $year;
 
-				if ( $total_minutes <= 40 ) {
+				if ( $total_minutes <= 660 ) {
 					return false;
 				}
 
