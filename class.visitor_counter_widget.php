@@ -24,12 +24,16 @@
 	 
 	        echo $before_widget;
 	        if ( empty( $title ) ) {
-	            $title = '';
+	            $title = 'Destacado';
 	        }
+	        echo $before_title;
+	        echo $title;
+	        echo $after_title;
+
 
 	        /*Content Widget*/
 	        $counter = new Counter;
-	        Counter::views( 'widget', $title, Counter::args() );
+	        Counter::views( 'widget', Counter::args() );
 
 
 	        echo $after_widget;

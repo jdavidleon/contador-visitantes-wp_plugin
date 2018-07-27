@@ -45,62 +45,85 @@ class Counter
 	static public function args()
 	{
 		return (object) array(
-			'today' => self::$visitors_today,
-			'yesterday' => self::$visitors_yesterday,
-			'week' => self::$visitors_week,
-			'month' => self::$visitors_month,
-			'last_mont' => self::$visitors_lastmonth,
-			'total' => self::$visitors_total,
+			'today' => number_format(self::$visitors_today,0,'.',','),
+			'yesterday' => number_format(self::$visitors_yesterday,0,'.',','),
+			'week' => number_format(self::$visitors_week,0,'.',','),
+			'month' => number_format(self::$visitors_month,0,'.',','),
+			'last_mont' => number_format(self::$visitors_lastmonth,0,'.',','),
+			'total' => number_format(self::$visitors_total,0,'.',','),
 		);
 	}
 
-	static public function views( $view = '', $title, $args = [] )
+	static public function views( $view = '', $args = [] )
 	{		
 		if ( $view === 'widget' ) {
-			
-			$w = '';
-			$w .= '<div class="card text-center border-success mx-auto" style="border-width: 3px;">';
-			$w .= '<div class="card-header text-white bg-success p-0 mb-1">';
-			$w .= '<small><strong class="text-uppercase">'.$title.'</strong></small>';
-			$w .= '</div>';
-			$w .= '<div class="card-body text-success p-4">';
-			$w .= '<h4 class="card-title bg-success text-white">';
-			$w .= number_format($args->total,0,'.',',');
-			$w .= '</h4>';
-			$w .= '<table class="table">';
-			$w .= '<tbody>';
-			$w .= '<tr class="">';
-			$w .= '<th scope="row"  class="p-0 border-0 text-left">Hoy</th>';    
-			$w .= '<td class="p-0 border-0 text-right">'.$args->today.'</td>';    
-			$w .= '</tr>';    
-			$w .= '<tr class="">';    
-			$w .= '<th scope="row"  class="p-0 border-0 text-left">Ayer</th>';    
-			$w .= '<td class="p-0 border-0 text-right">'.$args->yesterday.'</td>';    
-			$w .= '</tr>';    
-			$w .= '<tr class="">';    
-			$w .= '<th scope="row"  class="p-0 border-0 text-left">Esta Semana</th>';    
-			$w .= '<td class="p-0 border-0 text-right">'.$args->week.'</td>';    
-			$w .= '</tr>';    
-			$w .= '<tr class="">';    
-			$w .= '<th scope="row"  class="p-0 border-0 text-left">Este mes</th>';    
-			$w .= '<td class="p-0 border-0 text-right">'.$args->month.'</td>';    
-			$w .= '</tr>';        
-			$w .= '<tr class="">';        
-			$w .= '<th scope="row"  class="p-0 border-0 text-left">Mes pasado</th>';        
-			$w .= '<td class="p-0 border-0 text-right">'.$args->last_mont.'</td>';        
-			$w .= '</tr>';        
-			$w .= '<tr class="">';        
-			$w .= '<th scope="row"  class="p-0 border-0 text-left">Total</th>';        
-			$w .= '<td class="p-0 border-0 text-right">'.$args->total.'</td>';        
-			$w .= '</tr>';        
-			$w .= '</tbody>';        
-			$w .= '</table>';        
-			$w .= '</div>';        
-			$w .= '<div class="card-footer text-white p-0 border-0" style="background-color: rgb(89, 175, 108);">';
-			$w .= 'Tu IP: ';        
-			$w .= VisitorC::getUserIP();
-			$w .= '</div>';        
-			$w .= '</div>';        
+
+			$w = ''; 
+
+			$w .= '<div class="row">';   
+			$w .= '<div class="card text-center my-4 mx-auto">';   
+			$w .= '<div class="card-header p-2 rounded-top">';   
+			$w .= 'Contador de visitas';   
+			$w .= '</div>';   
+			$w .= '<div class="card-body">';   
+			$w .= '<div class="p-2 mb-3 total-container">';   
+			$w .= '<h5 class="card-title m-0">';   
+			$w .= '<i class="fas fa-users"></i> ';   
+			$w .= $args->total;   
+			$w .= '</h5>';   
+			$w .= '</div>';   
+			$w .= '<table class="table m-0">';   
+			$w .= '<tbody>';   
+			$w .= '<tr>';   
+			$w .= '<th class="p-1 text-left" scope="row">';   
+			$w .= '<i class="fas fa-user-alt"></i> ';   
+			$w .= 'Hoy';   
+			$w .= ' </th>';   
+			$w .= '<td class="p-1 text-right">'.$args->today.'</td>';   
+			$w .= '</tr>';   
+			$w .= '<tr>';   
+			$w .= '<th class="p-1 text-left" scope="row">';   
+			$w .= '<i class="fas fa-user-alt"></i> ';   
+			$w .= 'Ayer';   
+			$w .= '</th>';   
+			$w .= '<td class="p-1 text-right">'.$args->yesterday.'</td>';   
+			$w .= '</tr>';  
+			$w .= '<tr>';   
+			$w .= '<th class="p-1 text-left" scope="row">';   
+			$w .= '<i class="fas fa-user-alt"></i> ';   
+			$w .= 'Esta semana';   
+			$w .= '</th>';   
+			$w .= '<td class="p-1 text-right">'.$args->week.'</td>';   
+			$w .= '</tr>';  
+			$w .= '<tr>';   
+			$w .= '<th class="p-1 text-left" scope="row">';   
+			$w .= '<i class="fas fa-user-alt"></i> ';   
+			$w .= 'Este mes';   
+			$w .= '</th>';   
+			$w .= '<td class="p-1 text-right">'.$args->month.'</td>';   
+			$w .= '</tr>';  
+			$w .= '<tr>';   
+			$w .= '<th class="p-1 text-left" scope="row">';   
+			$w .= '<i class="fas fa-user-alt"></i> ';   
+			$w .= 'Mes pasado';   
+			$w .= '</th>';   
+			$w .= '<td class="p-1 text-right">'.$args->last_mont.'</td>';   
+			$w .= '</tr>';  
+			$w .= '<tr>';   
+			$w .= '<th class="p-1 text-left" scope="row">';   
+			$w .= '<i class="fas fa-user-alt"></i> ';   
+			$w .= 'Total';   
+			$w .= '</th>';   
+			$w .= '<td class="p-1 text-right">'.$args->total.'</td>';   
+			$w .= '</tr>';   
+			$w .= '</tbody>';   
+			$w .= '</table>';   
+			$w .= '</div>';   
+			$w .= '<div class="card-footer p-1">';   
+			$w .= '<small class="my-auto">TU IP: '.VisitorC::getUserIP().'</small>';             
+			$w .= '</div>';             
+			$w .= '</div>';             
+			$w .= '</div>';   
 
 			echo $w;
 
